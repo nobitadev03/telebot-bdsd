@@ -14,8 +14,6 @@ const config = {
   notifyOutgoing: String(process.env.NOTIFY_OUTGOING || 'true').toLowerCase() !== 'false',
 };
 
-const dedupeStore = new DedupeStore(config.dedupeFile);
-
 function formatVnd(value) {
   if (value === null || value === undefined || value === '') {
     return 'N/A';
@@ -310,6 +308,8 @@ class DedupeStore {
     await fs.rename(tmpPath, this.filePath);
   }
 }
+
+const dedupeStore = new DedupeStore(config.dedupeFile);
 
 main().catch((error) => {
   console.error(error);
