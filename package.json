@@ -1,0 +1,12 @@
+{
+  "name": "sepay-balance-bot",
+  "version": "1.0.0",
+  "description": "Sepay webhook receiver that forwards balance change notifications to Telegram.",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "check": "node --check src/server.js"
+  }
+}
