@@ -59,19 +59,21 @@ function normalizePayload(payload) {
 
 function buildTelegramMessage(event) {
   const direction = event.transferType === 'in' ? 'Tiền vào' : event.transferType === 'out' ? 'Tiền ra' : 'Biến động số dư';
+  const directionIcon = event.transferType === 'in' ? '🟢' : event.transferType === 'out' ? '🔴' : '🟡';
+  const header = event.transferType === 'in' ? '💸 SePay Báo Tiền Vào' : event.transferType === 'out' ? '💳 SePay Báo Tiền Ra' : '🔔 SePay Báo Biến Động';
   const lines = [
-    'SePay báo biến động số dư',
-    `Loại: ${direction}`,
-    `Số tiền: ${formatVnd(event.transferAmount)}`,
-    `Số dư lũy kế: ${formatVnd(event.accumulated)}`,
-    `Ngân hàng: ${event.gateway}`,
-    event.accountNumber ? `Tài khoản: ${event.accountNumber}` : null,
-    event.subAccount ? `Tài khoản phụ: ${event.subAccount}` : null,
-    event.code ? `Mã thanh toán: ${event.code}` : null,
-    event.referenceCode ? `Tham chiếu: ${event.referenceCode}` : null,
-    event.content ? `Nội dung: ${event.content}` : null,
-    event.transactionDate ? `Thời gian: ${event.transactionDate}` : null,
-    `Webhook ID: ${event.id}`,
+    header,
+    `${directionIcon} Loại: ${direction}`,
+    `💰 Số tiền: ${formatVnd(event.transferAmount)}`,
+    `🏦 Số dư lũy kế: ${formatVnd(event.accumulated)}`,
+    `🏛️ Ngân hàng: ${event.gateway}`,
+    event.accountNumber ? `🔢 Tài khoản: ${event.accountNumber}` : null,
+    event.subAccount ? `🧾 Tài khoản phụ: ${event.subAccount}` : null,
+    event.code ? `🧩 Mã thanh toán: ${event.code}` : null,
+    event.referenceCode ? `🔖 Tham chiếu: ${event.referenceCode}` : null,
+    event.content ? `📝 Nội dung: ${event.content}` : null,
+    event.transactionDate ? `⏰ Thời gian: ${event.transactionDate}` : null,
+    `🆔 Webhook ID: ${event.id}`,
   ].filter(Boolean);
 
   return lines.join('\n');
